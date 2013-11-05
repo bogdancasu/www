@@ -113,9 +113,11 @@
                             <img height="40px" width="40px"/>
                         </li>
                         <li class='dropdown'>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left: 10px">Bogdan Stelian</a>
+                            <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown" style="padding-left: 10px">Sign In</a>
                             <ul class="dropdown-menu user-menu">
-                                <li><a href="#">Sign out</a></li>
+                                <li><a href="#" class="hidden">Sign out</a></li>
+                                <li><a href="#" class="">Facebook</a></li>
+
                             </ul>
                         </li>
                     </ul>
@@ -194,6 +196,29 @@
                 xfbml      : true,  // parse XFBML
                 viewMode   : 'website'
             });
+
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    // the user is logged in and has authenticated your
+                    // app, and response.authResponse supplies
+                    // the user's ID, a valid access token, a signed
+                    // request, and the time the access token
+                    // and signed request each expire
+                    var uid = response.authResponse.userID;
+                    var accessToken = response.authResponse.accessToken;
+                    console.log("AM verificat");
+                    $("#userName").text(uid);
+                } else if (response.status === 'not_authorized') {
+                    // the user is logged in to Facebook,
+                    // but has not authenticated your app
+                } else {
+                    // the user isn't logged in to Facebook.
+                }
+            });
+
+            FB.Event.subscribe('auth.logout', function(){
+                $("#userName").text("Sign In");
+            });
         };
 
         function login(){
@@ -224,6 +249,8 @@
             js.src = "//connect.facebook.net/en_US/all.js";
             ref.parentNode.insertBefore(js, ref);
         }(document));
+
+
 
     </script>
 
