@@ -110,14 +110,13 @@
 
                     <ul class="nav pull-right">
                         <li>
-                            <img height="40px" width="40px"/>
+                            <img id="userAvatar" style=" padding-left: 10px; display: none" height="40px" width="40px"/>
                         </li>
                         <li class='dropdown'>
                             <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown" style="padding-left: 10px">Sign In</a>
                             <ul class="dropdown-menu user-menu">
-                                <li><a href="#" class="hidden">Sign out</a></li>
-                                <li><a href="#" class="">Facebook</a></li>
-
+                                <li><a href="#" id="logoutButton" style="display: none" onclick="logout()">Sign out</a></li>
+                                <li><a href="#" id="loginButton" onclick="login()">with Facebook</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -186,6 +185,14 @@
 
     <div id="fb-root"></div>
     <script>
+        var userInfo = {
+            uptodate : false,
+            userID : '',
+            userName : '',
+            accessToken : '',
+            avatarSrc : ''
+        }
+
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '402234923212539', // App ID
@@ -198,46 +205,89 @@
             });
 
             FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
+                if (response && response.status === 'connected') {
                     // the user is logged in and has authenticated your
                     // app, and response.authResponse supplies
                     // the user's ID, a valid access token, a signed
                     // request, and the time the access token
                     // and signed request each expire
-                    var uid = response.authResponse.userID;
-                    var accessToken = response.authResponse.accessToken;
-                    console.log("AM verificat");
-                    $("#userName").text(uid);
-                } else if (response.status === 'not_authorized') {
-                    // the user is logged in to Facebook,
-                    // but has not authenticated your app
-                } else {
-                    // the user isn't logged in to Facebook.
+                    updateUserInfo(response);
                 }
-            });
-
-            FB.Event.subscribe('auth.logout', function(){
-                $("#userName").text("Sign In");
+                else {
+                    userInfo.uptodate = false;
+                    updateInterfaceOnLoginStatusChange();
+                }
             });
         };
 
-        function login(){
-            FB.login(function(response) {
-                if (response.authResponse) {
-                    console.log('Welcome!  Fetching your information.... ' + response.authResponse.accessToken);
-                    FB.api('/me?access_token='+response.authResponse.accessToken, function(response2) {
-                        console.log('Good to see you, ' + response2.name + '.');
-                    });
-                } else {
-                    console.log('User cancelled login or did not fully authorize.');
+        function updateInterfaceOnLoginStatusChange() {
+            if (userInfo.uptodate) {
+                $("#userName").text(userInfo.userName);
+                $("#loginButton").css({display: 'none'});
+                $("#logoutButton").css({display: 'inline'})
+                img = $("#userAvatar");
+                img.css({display: 'inline'});
+                console.log(userInfo.avatarSrc);
+                img.attr('src', userInfo.avatarSrc);
+            }
+            else {
+                $("#userName").text("Sign In");
+                $("#loginButton").css({display: 'inline'});
+                $("#logoutButton").css({display: 'none'});
+                img = $("#userAvatar").css({display: 'none'});
+            }
+        }
+
+        function updateUserInfo(response) {
+            console.log('Welcome!  Fetching your information.... ' + response.authResponse.accessToken);
+
+            userInfo.accessToken = response.authResponse.accessToken;
+            userInfo.uid = response.authResponse.userID;
+            FB.api('me?fields=picture,name', function(response) {
+                console.log('Good to see you, ' + response.name + '.');
+                userInfo.userName = response.name;
+                userInfo.avatarSrc = response.picture.data.url;
+                updateInterfaceOnLoginStatusChange();
+            });
+
+            userInfo.uptodate = true;
+        }
+
+        function executeOnLoginStatus(status, f) {
+            FB.getLoginStatus(function(response) {
+                if (response && response.status === 'connected') {
+                    if (status === true) {
+                        f();
+                    }
+                }
+                else {
+                    if (status === false) {
+                        f();
+                    }
                 }
             });
         }
 
-        function logout(){
-            FB.logout(function() {
-                // Person is now logged out
-                console.log(response.status);
+        function login() {
+            executeOnLoginStatus(false, function() {
+                FB.login(function(response) {
+                    if (response && response.status === 'connected') {
+                        updateUserInfo(response);
+                    } else {
+                        console.log('User cancelled login or did not fully authorize.');
+                    }
+                });
+            });
+        }
+
+        function logout() {
+            executeOnLoginStatus(true, function() {
+                FB.logout(function(response) {
+                    // Person is now logged out
+                    console.log('Logging out... ' + response.status);
+                    userInfo.uptodate = false;
+                    updateInterfaceOnLoginStatusChange();
+                });
             });
         }
 
