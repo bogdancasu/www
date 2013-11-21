@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://getbootstrap.com/components/#navbar -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+<title>Bootstrap 101 Template</title>
+
+<head>
+    <!-- Bootstrap -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jquery-ui-1.10.3.custom.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Short+Stack" rel="stylesheet" type="text/css" media="all">
+    <link href="css/media.css" rel="stylesheet" type="text/css" media="all" />
+
+    <style>
+        .carousel-inner>.item>img, .carousel-inner>.item {
+            height: 420px;
+            width:  100%;
+        }
+
+    </style>
+
+</head>
+
+<body style="background-color: #9acfea">
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" style="padding-left: 10px">
+                        <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown" style="padding-left: 10px">Sign In</a>
+                        <ul class="dropdown-menu user-menu">
+                            <li><a href="#" id="logoutButton" style="display: none" onclick="logout()">Sign out</a></li>
+                            <li><a href="#" id="loginButton" onclick="login()">with Facebook</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                            <img id="userAvatar" style="display: none; margin-top: 5px " height="40px" width="40px"/>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search"/>
+                    </div>
+                </form>
+        </div>
+    </nav>
+
+    <div id="myCarousel" class="carousel slide" data-ride="">
+        <div class="carousel-inner">
+            <div class="active item">
+                <img src="./img/slide-01.jpg" >
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Example headline.</h1>
+                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="./img/slide-02.jpg">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Example headline.</h1>
+                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+
+    <div class="container" style="margin-top: 0px; position: relative">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-primary" style="margin-top: 15px">
+                    <div class="panel-heading">Panel heading without title</div>
+                    <div class="panel-body" id="sidebar-container">
+                        <div class="sidebar" id="sidebar">
+                            <div class="btnpanel" id="sidepanel">
+                                <div class="button newnote" id="new_note"><span class="tooltip left">new note</span></div>
+                                <!-- <div class="button info" id="note_info"><span class="tooltip left ">info</span></div>
+                                <div class="button star" id="note_favorite"><span class="tooltip left">star</span></div> -->
+                                <!-- <div class="button savenotes" id="note_save"><span class="tooltip left">save notes</span></div> -->
+                                <!-- <div id="view" class="button view free"><span class="tooltip left">Sorted/Free</span></div> -->
+                            </div>
+                            <form class="note-form" method="get" id="note-form" accept-charset="utf-8">
+                                <label for="titlebox">
+                                    <input class="titlebox" disabled="true" id="titlebox" name="title" type="text" />
+                                    <span class="tooltip left">Press tab to type in this note.</span>
+                                </label>
+                                <label for="textbox">
+                                    <textarea class="textbox" id="textbox" name="textbox" disabled="true" placeholder="Click the + button to create a new note."></textarea>
+                                    <span class="tooltip left">Press tab again to go to the next note.</span>
+                                </label>
+                                <div class="colorpicker" id="colorpicker"><div class="color-box color-01"></div><div class="color-box color-02"></div><div class="color-box color-03"></div><div class="color-box color-04"></div><div class="color-box color-05"></div><div class="color-box color-06"></div><div class="color-box color-07"></div><div class="color-box color-08"></div></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="panel panel-primary" style="margin-top: 15px">
+                    <div class="panel-body" >
+                        <div class="sticky-container" id="container">
+                            <div class="workspace" id="workspace">
+
+                                <div id="trash" class="button trash closed"><span class="tooltip right">Drag a note here to throw it away</span></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="fb-root"></div>
+
+
+    <script src="http://code.jquery.com/jquery.js" type="text/javascript" ></script>
+    <script src="js/jquery-ui-1.8.17.custom.min.js" type="text/javascript" ></script>
+    <script src="js/bootstrap.js" type="text/javascript" ></script>
+    <script src="js/Math.uuid.js" type="text/javascript"></script>
+    <script src="js/sticky-core.js" type="text/javascript"></script>
+    <script>
+        var userInfo = {
+            uptodate : false,
+            userID : '',
+            userName : '',
+            accessToken : '',
+            avatarSrc : ''
+        }
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '402234923212539', // App ID
+                channel    : true,
+                channelUrl : 'http://localhost/index.php', // Channel File
+                status     : true, // check login status
+                cookie     : true, // enable cookies to allow the server to access the session
+                xfbml      : true,  // parse XFBML
+                viewMode   : 'website'
+            });
+
+            FB.getLoginStatus(function(response) {
+                if (response && response.status === 'connected') {
+                    // the user is logged in and has authenticated your
+                    // app, and response.authResponse supplies
+                    // the user's ID, a valid access token, a signed
+                    // request, and the time the access token
+                    // and signed request each expire
+                    updateUserInfo(response);
+                }
+                else {
+                    userInfo.uptodate = false;
+                    updateInterfaceOnLoginStatusChange();
+                }
+            });
+        };
+
+        function updateInterfaceOnLoginStatusChange() {
+            if (userInfo.uptodate) {
+                $("#userName").text(userInfo.userName);
+                $("#loginButton").css({display: 'none'});
+                $("#logoutButton").css({display: 'inline'})
+                img = $("#userAvatar");
+                img.css({display: 'inline'});
+                console.log(userInfo.avatarSrc);
+                img.attr('src', userInfo.avatarSrc);
+            }
+            else {
+                $("#userName").text("Sign In");
+                $("#loginButton").css({display: 'inline'});
+                $("#logoutButton").css({display: 'none'});
+                img = $("#userAvatar").css({display: 'none'});
+            }
+        }
+
+        function updateUserInfo(response) {
+            console.log('Welcome!  Fetching your information.... ' + response.authResponse.accessToken);
+
+            userInfo.accessToken = response.authResponse.accessToken;
+            userInfo.uid = response.authResponse.userID;
+            FB.api('me?fields=picture,name', function(response) {
+                console.log('Good to see you, ' + response.name + '.');
+                userInfo.userName = response.name;
+                userInfo.avatarSrc = response.picture.data.url;
+                userInfo.uptodate = true;
+                updateInterfaceOnLoginStatusChange();
+            });
+        }
+
+        function executeOnLoginStatus(status, f) {
+            FB.getLoginStatus(function(response) {
+                if (status === (response && response.status === 'connected')) {
+                    f();
+                }
+            });
+        }
+
+        function login() {
+            executeOnLoginStatus(false, function() {
+                FB.login(function(response) {
+                    if (response && response.status === 'connected') {
+                        updateUserInfo(response);
+                    } else {
+                        console.log('User cancelled login or did not fully authorize.');
+                    }
+                });
+            });
+        }
+
+
+        function logout() {
+            executeOnLoginStatus(true, function() {
+                FB.logout(function(response) {
+                    // Person is now logged out
+                    console.log('Logging out... ' + response.status);
+                    userInfo.uptodate = false;
+                    updateInterfaceOnLoginStatusChange();
+                });
+            });
+        }
+
+        // Load the SDK asynchronously
+        (function(d){
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document));
+
+    </script>
+
+</body>
+</html>
