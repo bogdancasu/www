@@ -24,6 +24,23 @@
             width:  100%;
         }
 
+        .thumbnail_text {
+            width: 200px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-align:justify;
+            text-justify:inter-word;
+        }
+
+        .thumbnail_text:hover{
+            overflow: visible;
+            white-space: normal;
+            width: auto;
+        }
+
+        .centralContent{}
+
     </style>
 
 </head>
@@ -99,9 +116,26 @@
 
     <div class="container" style="margin-top: 0px; position: relative">
         <div class="row">
+
             <div class="col-md-3">
                 <div class="panel panel-primary" style="margin-top: 15px">
-                    <div class="panel-heading">Panel heading without title</div>
+                    <div class="btn-group-vertical btn-group-lg" style="width: 100%">
+                        <div class="btn btn-primary" type="button" onclick="tripSuggestionsButton()">Trip Suggestions</div>
+                        <button class="btn btn-primary" type="button" onclick="newTripButton()">New Trip</button>
+                        <div class="btn-group btn-group-lg">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width: 100%">
+                                My Trips <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" style="width: 100%">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-heading">Add new assignment note</div>
                     <div class="panel-body" id="sidebar-container">
                         <div class="sidebar" id="sidebar">
                             <div class="btnpanel" id="sidepanel">
@@ -130,12 +164,111 @@
             <div class="col-md-9">
                 <div class="panel panel-primary" style="margin-top: 15px">
                     <div class="panel-body" >
-                        <div class="sticky-container" id="container">
-                            <div class="workspace" id="workspace">
+                        <div class="sticky-container centralContent hidden" id="my_trips_page">
 
-                                <div id="trash" class="button trash closed"><span class="tooltip right">Drag a note here to throw it away</span></div>
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#topics_board">
+                                                Topics
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="topics_board" class="collapse in">
+                                        <div class="panel-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#sticky_notes_board">
+                                                Assignments
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="sticky_notes_board" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <div class="workspace" id="workspace">
+
+                                                <div id="trash" class="button trash closed"><span class="tooltip right">Drag a note here to throw it away</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
+
+                        </div>
+
+                        <div class="centralContent" id="trip_suggestions_page">
+                            <div class="row" id="first_page1">
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        <img src="img/bucharest.jpg" alt="...">
+                                        <div class="caption">
+                                            <h3>Bucharest</h3>
+                                            <p class="thumbnail_text">Bucharest lies in the middle of the Romanian plain, on the banks of the Dâmbovita, a minor northern tributary of the River Danube. Bucharest is the economic, administrative, and cultural centre of Romania.
+                                                The modern city is characterized by a number of squares from which streets and boulevards mainly radiate. There is an immense palatial marble House of the People (Casa Poporului). Republic Square contains the palace hall and the historic Cretulescu Church (1722) and is one of the most beautiful squares of the city. It is linked to Palace Square, which is surrounded by an imposing group of administrative, political, and cultural buildings including the massive Romanian Athenaeum, notable for its columned façade. Bucharest is also the seat of a national philharmonic orchestra. Among the many museums is the Art Museum of Romania, with large collections of national, European and Oriental art.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        <img src="img/paris.jpg" alt="...">
+                                        <div class="caption">
+                                            <h3>Paris</h3>
+                                            <p class="thumbnail_text">Paris is the capital of France and the country`s largest city. It is situated on the river Seine, in northern France, at the heart of the Île-de-France region. The City of Paris, within its limits largely unchanged since 1860. Paris is today one of the world`s leading business and cultural centres, and its influence in politics, education, entertainment, media, fashion, science and the arts all contribute to its status as one of the world`s major global cities. Paris is one of the most popular tourist destinations in the world, with over 30 million foreign visitors per year. There are numerous iconic landmarks among its many attractions, along with world-famous institutions and popular parks.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        <img src="img/new_york.jpg" alt="...">
+                                        <div class="caption">
+                                            <h3>New York</h3>
+                                            <p class="thumbnail_text">New York City, city and port located at the mouth of the Hudson River, southeastern New York state, northeastern U.S. It is the largest and most influential American metropolis, encompassing Manhattan and Staten islands, the western sections of Long Island, and a small portion of the New York state mainland to the north of Manhattan. New York City is in reality a collection of many neighbourhoods scattered among the city’s five boroughs—Manhattan, Brooklyn, the Bronx, Queens, and Staten Island—each exhibiting its own lifestyle.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" id="first_page2">
+
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        <img src="img/rome.jpg" alt="...">
+                                        <div class="caption">
+                                            <h3>Rome</h3>
+                                            <p class="thumbnail_text">Rome is the capital city of Italy and is Italy`s largest and most populous city. It is located in the central-western portion of the Italian peninsula, on the Tiber river. Rome`s history as a city spans over two and a half thousand years, as one of the founding cities of Western Civilization. Even outside of the history of the Roman Empire, Rome has a significant place in the story of Christianity up to the present day, for it endures as the home of the papacy. Today, Rome is a modern, cosmopolitan city, and the third most-visited tourist destination in the European Union. The city, which is globally perceived as the second most exciting and attractive city in the world according to City Brands Index, attracts over 26 million tourists per year. Due to its influence in politics, media, the arts and culture, Rome has been described as a global city.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        <img src="img/tokyo.jpg" alt="...">
+                                        <div class="caption">
+                                            <h3>Tokyo</h3>
+                                            <p class="thumbnail_text">Tokyo, one of the most exciting Cities in the world has been changing its face for over the years. Unlike other Capitals of the developed countries, Tokyo is still growing up dramatically and the chaos that comes from its rapid changing attracts lots of people from all over the world. On the other hand, Tokyo is the capital of the Country that is proud of its oldest history in the world. Tokyo itself has the history of 400 years as a political centre of Japan. Here you can still feel the breath of the ancient heritage of Japan. The rendezvous of the Old and the New, the Past and the Future are the highlights of this great city.</p>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        <img src="img/london.jpg" alt="...">
+                                        <div class="caption">
+                                            <h3>London</h3>
+                                            <p class="thumbnail_text">London is one of the largest and most dynamic cities in the world, with a strong international character and a diverse population of more than seven million people. A thriving cultural, financial, and political center, London is a vast city encompassing a variety of historic, commercial and residential areas, many of which remain distinct neighborhoods with a strong community feel. Traditional black cabs, the Tower of London, colorful street markets, the River Thames, chic Covent Garden, Tate Modern, Canary Wharf and the Docklands, and the expansive Hyde Park exemplify some of the contrasts that make London one of Europe’s most exciting and vibrant destinations.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -253,6 +386,7 @@
         }
 
         // Load the SDK asynchronously
+
         (function(d){
             var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
             if (d.getElementById(id)) {return;}
@@ -260,6 +394,17 @@
             js.src = "//connect.facebook.net/en_US/all.js";
             ref.parentNode.insertBefore(js, ref);
         }(document));
+        
+
+        function tripSuggestionsButton() {
+            $(".centralContent").addClass("hidden");
+            $("#trip_suggestions_page").removeClass("hidden");
+        }
+
+        function newTripButton() {
+            $(".centralContent").addClass("hidden");
+            $("#my_trips_page").removeClass("hidden");
+        }
 
     </script>
 
