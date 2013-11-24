@@ -18,7 +18,6 @@
     <link href="http://fonts.googleapis.com/css?family=Short+Stack" rel="stylesheet" type="text/css" media="all">
     <link href="css/media.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <!-- <script src="/twitter-bootstrap/twitter-bootstrap-v2/ js/bootstrap-tooltip.js"></script> -->
 
     <style>
         .carousel-inner>.item>img, .carousel-inner>.item {
@@ -42,6 +41,12 @@
         }
 
         .centralContent{}
+
+        #invited-friends > span {
+            display: block;
+            float: left;
+            margin: 0 5px 5px 0;
+        }
 
     </style>
 
@@ -157,6 +162,11 @@
                                 <div class="colorpicker" id="colorpicker"><div class="color-box color-01"></div><div class="color-box color-02"></div><div class="color-box color-03"></div><div class="color-box color-04"></div><div class="color-box color-05"></div><div class="color-box color-06"></div><div class="color-box color-07"></div><div class="color-box color-08"></div></div>
                             </form>
                         </div>
+                        <div id="friend-list-wrapper" style="width: 100%; overflow: hidden">
+                            <div id="friend-list-area" style="overflow-y: auto; max-height: 400px;">
+                                <ul class="list-group" id="friend-list"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -187,7 +197,7 @@
                                     </div>
                                     <div id="topics_board" class="collapse in">
 
-                                        <div class="centralContent" id="top_chat_element">
+                                        <div class="" id="top_chat_element">
                                             <div class="row" id="chat_element">
                                                 <div class="chat">
                                                     <ul id="tabs" class="nav nav-tabs">
@@ -352,12 +362,14 @@
                                 Trip Date: <input type="date" name="trip_date"/>
                             </form>
 
-
+                            <div id="trip-settings">
+                                <h3>Invited friends:</h3>
+                                <h3><div id="invited-friends" style="display: table"></div></h3>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -371,11 +383,12 @@
     <script src="js/sticky-core.js" type="text/javascript"></script>
     <script>
         var userInfo = {
-            uptodate : false,
+            upToDate : false,
             userID : '',
             userName : '',
             accessToken : '',
-            avatarSrc : ''
+            avatarSrc : '',
+            friendList : []
         }
 
         window.fbAsyncInit = function() {
@@ -399,27 +412,57 @@
                     updateUserInfo(response);
                 }
                 else {
-                    userInfo.uptodate = false;
+                    userInfo.upToDate = false;
                     updateInterfaceOnLoginStatusChange();
                 }
             });
         };
 
+        function generateFriendList() {
+            var list = "";
+            var startTag = '<a class="list-group-item">';
+            var endTag = '</a>';
+            for (var i = 0; i < userInfo.friendList.length; i++) {
+                list += startTag + userInfo.friendList[i].name + endTag;
+            }
+            return list;
+        }
+
+        function removeInvited(element) {
+            console.log(element);
+            element.remove();
+        }
+
         function updateInterfaceOnLoginStatusChange() {
-            if (userInfo.uptodate) {
+            if (userInfo.upToDate) {
                 $("#userName").text(userInfo.userName);
                 $("#loginButton").css({display: 'none'});
                 $("#logoutButton").css({display: 'inline'})
-                img = $("#userAvatar");
+                var img = $("#userAvatar");
                 img.css({display: 'inline'});
-                console.log(userInfo.avatarSrc);
                 img.attr('src', userInfo.avatarSrc);
+                $("#friend-list").html(generateFriendList());
+
+                $("#friend-list-area").css({width: '246px'});
+                $("#friend-list > a").bind( "mousedown", function() {
+                    $(this).addClass( "active" );
+                });
+                $("#friend-list > a").bind( "mouseup", function() {
+                    $(this).removeClass( "active" );
+                    $("#invited-friends").append( function(text){
+                            return '<span class="label label-default ">' + text +
+                                    ' <span class="glyphicon glyphicon-remove-circle" onclick="removeInvited(this.parentElement)"/></span>'
+                        }($(this).text())
+                    );
+
+                });
             }
             else {
                 $("#userName").text("Sign In");
                 $("#loginButton").css({display: 'inline'});
                 $("#logoutButton").css({display: 'none'});
-                img = $("#userAvatar").css({display: 'none'});
+                $("#userAvatar").css({display: 'none'});
+                $("#friend-list").html("");
             }
         }
 
@@ -428,11 +471,12 @@
 
             userInfo.accessToken = response.authResponse.accessToken;
             userInfo.uid = response.authResponse.userID;
-            FB.api('me?fields=picture,name', function(response) {
+            FB.api('me?fields=name,picture,friends.fields(id,name)', function(response) {
                 console.log('Good to see you, ' + response.name + '.');
                 userInfo.userName = response.name;
                 userInfo.avatarSrc = response.picture.data.url;
-                userInfo.uptodate = true;
+                userInfo.friendList = response.friends.data;
+                userInfo.upToDate = true;
                 updateInterfaceOnLoginStatusChange();
             });
         }
@@ -457,20 +501,18 @@
             });
         }
 
-
         function logout() {
             executeOnLoginStatus(true, function() {
                 FB.logout(function(response) {
                     // Person is now logged out
                     console.log('Logging out... ' + response.status);
-                    userInfo.uptodate = false;
+                    userInfo.upToDate = false;
                     updateInterfaceOnLoginStatusChange();
                 });
             });
         }
 
         // Load the SDK asynchronously
-
         (function(d){
             var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
             if (d.getElementById(id)) {return;}
@@ -482,22 +524,18 @@
 
         function tripSuggestionsButton() {
             $(".centralContent").addClass("hidden");
-            $("#new_trip_page").addClass("hidden");
             $("#trip_suggestions_page").removeClass("hidden");
         }
 
         function newTripButton() {
             $(".centralContent").addClass("hidden");
-            $("#trip_suggestions_page").addClass("hidden");
             $("#new_trip_page").removeClass("hidden");
         }
 
         function myTripsButton() {
-            $(".centralContent").removeClass("hidden");
-            $("#trip_suggestions_page").addClass("hidden");
-            $("#new_trip_page").addClass("hidden");
+            $(".centralContent").addClass("hidden");
+            $("#my_trips_page").removeClass("hidden");
         }
-
 
         //-----------------MAP FUNCTIONALITY-----------------------//
 
@@ -575,7 +613,6 @@
         }
 
         window.onload = loadScript;
-
 
         //----------------- TOPICS TABS -----------------------//
 
