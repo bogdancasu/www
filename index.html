@@ -17,6 +17,8 @@
     <link href="css/jquery-ui-1.10.3.custom.min.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Short+Stack" rel="stylesheet" type="text/css" media="all">
     <link href="css/media.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <!-- <script src="/twitter-bootstrap/twitter-bootstrap-v2/ js/bootstrap-tooltip.js"></script> -->
 
     <style>
         .carousel-inner>.item>img, .carousel-inner>.item {
@@ -94,8 +96,8 @@
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>Example headline.</h1>
-                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+                        <p class="lead">I can be your daily trip planner...</p>
+                        <!-- <a class="btn btn-large btn-primary" href="#">Sign up today</a> -->
                     </div>
                 </div>
             </div>
@@ -104,8 +106,8 @@
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>Example headline.</h1>
-                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+                        <p class="lead">I can be your daily trip planner...</p>
+                        <!-- <a class="btn btn-large btn-primary" href="#">Sign up today</a> -->
                     </div>
                 </div>
             </div>
@@ -127,11 +129,9 @@
                                 My Trips <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" style="width: 100%">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#" onclick="myTripsButton()">My First Trip</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Amazing Trip</a></li>
                             </ul>
                         </div>
                     </div>
@@ -162,10 +162,20 @@
             </div>
 
             <div class="col-md-9">
-                <div class="panel panel-primary" style="margin-top: 15px">
+                <div class="panel panel-primary" style="margin-top: 2px">
                     <div class="panel-body" >
                         <div class="sticky-container centralContent hidden" id="my_trips_page">
-
+                            <div class="toptop">
+                                <div class="toptop-has">
+                                    <h1>My First Trip</h1>
+                                </div>
+                                <div class="toptop-button">
+                                    <div class="btn-group">
+                                        <!--window.location path trebuie modificat astfel incat sa trimita catre pagina de editare a cursei din cadrul proiectului-->
+                                        <button href="www.google.ro" type="button" onclick="newTripButton()" class="btn btn-primary">Edit Trip <span class="glyphicon glyphicon-edit"></span></button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="panel-group" id="accordion">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
@@ -176,8 +186,57 @@
                                         </h4>
                                     </div>
                                     <div id="topics_board" class="collapse in">
-                                        <div class="panel-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+
+                                        <div class="centralContent" id="top_chat_element">
+                                            <div class="row" id="chat_element">
+                                                <div class="chat">
+                                                    <ul id="tabs" class="nav nav-tabs">
+                                                        <li id="0"  class="active"><a href="#food" data-toggle="tab">Food</a></li>
+                                                        <li id="1"><a href="#drinks" data-toggle="tab">Drinks</a></li>
+                                                        <li id="2"><a href="#music" data-toggle="tab">Music</a></li>
+                                                        <li id="pluss"><span id="plus"data-toggle="modal" data-target="#myModal" class="glyphicon glyphicon-plus-sign" style="cursor: pointer; padding-left: 10px;margin-top: 12px;"></span></li>
+
+                                                        <!-- Modal TOPICS -->
+                                                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                        <h4 class="modal-title" id="myModalLabel">Adauga o noua categorie</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon">Denumire categorie:</span>
+                                                                            <input id="newCat" type="text" class="form-control" placeholder="ex: Muzica, Mancare, Bautura...">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Inchide</button>
+                                                                        <button id="save" onclick="save()" type="button" class="btn btn-primary">Salveaza</button>
+
+                                                                    </div>
+                                                                </div><!-- /.modal-content -->
+                                                            </div><!-- /.modal-dialog -->
+                                                        </div><!-- /.modal -->
+                                                    </ul>
+                                                    <div id="tab-content" class="tab-content">
+                                                        <div class="tab-pane fade in active" id="food"></div>
+                                                        <div class="tab-pane fade" id="drinks"></div>
+                                                        <div class="tab-pane fade" id="music"></div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="input-group">
+                                                            <input type="text" id="chatMess" class="form-control">
+                                                        <span class="input-group-btn">
+                                                            <button onclick="send()" class="btn btn-default" type="button">Send</button>
+                                                        </span>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +258,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                         </div>
 
@@ -269,6 +327,32 @@
                                 </div>
 
                             </div>
+                        </div>
+
+                        <div class="centralContent hidden" id="new_trip_page">
+                            <input type="text" class="form-control" placeholder="Your Trip Name" id="trip_name"/>
+
+                            <div style="height:500px;width:100%">
+                                <div id="map-canvas" style="height: 100%; width: 100%; margin-top:2px"></div>
+                            </div>
+
+                            <div  style="margin-top:5px">
+                                <div class="input-group">
+                                    <input id="address" type="text" class="form-control" placeholder="Search Location">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" onClick="codeAddress()">Add Location</button>
+                                       </span>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px; height:200px">
+                                <ul class="list-group" id="locations_list"/>
+                            </div>
+
+                            <form action="demo_form.asp">
+                                Trip Date: <input type="date" name="trip_date"/>
+                            </form>
+
+
                         </div>
                     </div>
                 </div>
@@ -398,12 +482,145 @@
 
         function tripSuggestionsButton() {
             $(".centralContent").addClass("hidden");
+            $("#new_trip_page").addClass("hidden");
             $("#trip_suggestions_page").removeClass("hidden");
         }
 
         function newTripButton() {
             $(".centralContent").addClass("hidden");
-            $("#my_trips_page").removeClass("hidden");
+            $("#trip_suggestions_page").addClass("hidden");
+            $("#new_trip_page").removeClass("hidden");
+        }
+
+        function myTripsButton() {
+            $(".centralContent").removeClass("hidden");
+            $("#trip_suggestions_page").addClass("hidden");
+            $("#new_trip_page").addClass("hidden");
+        }
+
+
+        //-----------------MAP FUNCTIONALITY-----------------------//
+
+        var map = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAJQBD8APx8ZhafQ-h_THNMHZP-1tMIK4U&sensor=true' ;
+        var map_element;
+        var markers = [];
+        var geocoder;
+        var total_distance = 0.0;
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            var mapOptions = {
+                center: new google.maps.LatLng(44.437, 26.095),
+                zoom: 12
+            };
+
+            map_element = new google.maps.Map(document.getElementById("map-canvas"),
+                    mapOptions);
+        }
+
+        function loadScript() {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = map +'&callback=initialize&libraries=geometry';
+            document.body.appendChild(script);
+        }
+
+        function setAllMap(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+
+        function deleteAllMarkers() {
+            setAllMap(null);
+            markers = [];
+            total_distance = 0;
+        }
+
+        function computeDistance() {
+            var len = markers.length;
+            if (len >= 2) {
+                total_distance  += parseFloat((google.maps.geometry.spherical.computeDistanceBetween(markers[len - 2].getPosition(),
+                        markers[len - 1].getPosition())/1000).toFixed(2));
+                total_distance.toFixed(2);
+            }
+            // document.getElementById("distanceText").innerHTML="Distanta totala este " + total_distance + "km.";
+        }
+
+        function codeAddress() {
+            var address = document.getElementById("address").value;
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map_element.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map_element,
+                        animation: google.maps.Animation.DROP,
+                        position: results[0].geometry.location
+                    });
+                    marker.setTitle(results[0].formatted_address);
+                    markers.push(marker);
+
+                    addLocationToList();
+                    computeDistance();
+                }
+            });
+        }
+
+        function addLocationToList() {
+            var elem = "";
+            var startTag = '<li class="list-group-item">';
+            var endTag = '</li>';
+            elem += startTag + markers[markers.length - 1].getTitle() + endTag;
+           // elem = $("#locations_list").innerHTML + elem;
+            $("#locations_list").append(elem);
+        }
+
+        window.onload = loadScript;
+
+
+        //----------------- TOPICS TABS -----------------------//
+
+        function save() {
+            var newC = document.getElementById("newCat");
+            var tabId = document.getElementById("pluss");
+            /*alert(tabId);*/
+            $(this).parents('li').remove('li');
+            $(tabId).remove();
+            var n =  $(this).parents('li').children.length;
+            $('#tabs').append('<li id=n.value><a href="#' + newC.value + '" data-toggle="tab">' + newC.value + '</a></li>');
+            $('.tab-content').append('<div class="tab-pane fade" id="' + newC.value + '"></div>');
+            $('#tabs').append('<li id="pluss"><span id="plus"data-toggle="modal" data-target="#myModal" class="glyphicon glyphicon-plus-sign" style="cursor: pointer; padding-left: 10px;margin-top: 12px;"></span></li>');
+            $('#myModal').modal('hide');
+            newC.value="";
+        }
+
+        function send() {
+            var tatal=document.getElementById("#tab-content")
+            var activediv = $('.tab-pane').filter('.active');
+            /*alert(activediv);*/
+
+            var textul = document.getElementById("chatMess");
+            /*alert(textul.value);*/
+            activediv.append('<div style="width:100%;margin:0;padding:0;float:left;"><p style="' +
+                    'width:auto;' +
+                    'float:right;' +
+                    'padding:10px;' +
+                    'border: solid 1px #c0c0c0;' +
+                    'border-bottom-left-radius:17px;' +
+                    'border-top-right-radius:17px;' +
+                    'border-top-left-radius:17px;' +
+                    'background: #bddaed;' +
+                    'background: -moz-linear-gradient(top, #bddaed 0%, #dce9f4 60%, #abcfe8 100%); /* FF3.6+ */' +
+                    'background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bddaed), color-stop(60%,#dce9f4), color-stop(100%,#abcfe8)); /* Chrome,Safari4+ */' +
+                    'background: -webkit-linear-gradient(top, #bddaed 0%,#dce9f4 60%,#abcfe8 100%); /* Chrome10+,Safari5.1+ */' +
+                    'background: -o-linear-gradient(top, #bddaed 0%,#dce9f4 60%,#abcfe8 100%); /* Opera 11.10+ */' +
+                    'background: -ms-linear-gradient(top, #bddaed 0%,#dce9f4 60%,#abcfe8 100%); /* IE10+ */' +
+                    'background: linear-gradient(to bottom, #bddaed 0%,#dce9f4 60%,#abcfe8 100%); /* W3C */' +
+                    '-moz-box-shadow: 0 0 7px #666;' +
+                    '-webkit-box-shadow: 0 0 7px #666;' +
+                    'box-shadow: 0 0 7px #666;' +
+                    'color: #444' +
+                    '">' + textul.value + '</p></div>');
+            chatMess.value="";
         }
 
     </script>

@@ -1,0 +1,97 @@
+.chat
+{
+    width:90%;
+
+    display:block;
+    margin:auto;
+
+    padding-top:10px;
+
+
+    /*background-color: red;*/
+}
+.well
+{
+    border-top:0;
+    border-bottom:0;
+    border-radius: 0;
+    margin-bottom:0;
+}
+.col-lg-6 {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.input-group input{
+    border-top-left-radius:0;
+}
+.input-group-btn>.btn
+{
+    border-top-right-radius:0;
+    border-top-left-radius:0;
+    border-bottom-left-radius:0;
+
+    background-color: #428bca;
+
+    color:white;
+}
+.tab-content
+{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.toptop
+{
+    float:left;
+    width:100%;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.toptop-has
+{
+    float:left;
+    width:80%;
+}
+.toptop-has> h2,h3
+{
+    margin:0;padding:0;
+}
+.toptop-button
+{
+    float:left;
+    width:20%;
+}
+.toptop-button .btn-group
+{
+    float:right;
+}
+
+.toptop2
+{
+    width:100%;
+    float:left;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+.modal-dialog {
+    margin-top:200px !important;
+}
+
+.tab-pane
+{
+    float:left;
+    width:100%;
+    border-left:solid 1px #d0d0d0;
+    border-right:solid 1px #d0d0d0;
+
+    background-color: #efefef;
+
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+
+    padding:10px;
+
+    min-height: 300px;
+}
