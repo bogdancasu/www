@@ -59,19 +59,6 @@
                     <li class="active"><a href="#">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -172,7 +159,7 @@
             </div>
 
             <div class="col-md-9">
-                <div class="panel panel-primary" style="margin-top: 2px">
+                <div class="panel panel-primary" style="margin-top: 15px">
                     <div class="panel-body" >
                         <div class="sticky-container centralContent hidden" id="my_trips_page">
                             <div class="toptop">
@@ -340,31 +327,43 @@
                         </div>
 
                         <div class="centralContent hidden" id="new_trip_page">
-                            <input type="text" class="form-control" placeholder="Your Trip Name" id="trip_name"/>
 
-                            <div style="height:500px;width:100%">
-                                <div id="map-canvas" style="height: 100%; width: 100%; margin-top:2px"></div>
-                            </div>
-
-                            <div  style="margin-top:5px">
-                                <div class="input-group">
-                                    <input id="address" type="text" class="form-control" placeholder="Search Location">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="button" onClick="codeAddress()">Add Location</button>
-                                       </span>
+                            <div class="panel panel-info">
+                                <div class="panel-heading">Google maps</div>
+                                <div class="panel-body" style="width: 100%; padding: 0px">
+                                    <div id="map-canvas" style="height:500px"></div>
                                 </div>
                             </div>
-                            <div style="margin-top:5px; height:200px">
-                                <ul class="list-group" id="locations_list"/>
-                            </div>
+                            <div class="panel panel-info">
+                                <div class="panel-body" style="width: 100%; padding: 0px">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group" style="margin-left: 12px">
+                                            <input id="address" type="text" class="form-control" placeholder="Search Location">
+                                            <span class="input-group-btn" >
+                                                <button class="btn btn-primary" type="button" onClick="codeAddress()">Search</button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
 
-                            <form action="demo_form.asp">
-                                Trip Date: <input type="date" name="trip_date"/>
-                            </form>
+                                    <div class="col-md-6">
+                                        <button type="button" class="btn btn-primary pull-right" onClick="deleteAllMarkers()">Clear Map</button>
+                                    </div>
+                                </div>
 
-                            <div id="trip-settings">
-                                <h3>Invited friends:</h3>
-                                <h3><div id="invited-friends" style="display: table"></div></h3>
+                                <table id="locations_table" class="table table-bordered" style="margin: 12px; width: 780px" >
+                                    <tr class="info">
+                                        <th>Location Name</th>
+                                        <th>Trip Date</th>
+                                        <th>Movement Type</th>
+                                    </tr>
+                                </table>
+
+                                <div id="trip-settings" style="margin-bottom: 15px; margin-left: 12px">
+                                    <h3>Invited friends:</h3>
+                                    <h3><div id="invited-friends" style="display: table"></div></h3>
+                                </div>
+                             </div>
                             </div>
                         </div>
                     </div>
@@ -530,6 +529,7 @@
         function newTripButton() {
             $(".centralContent").addClass("hidden");
             $("#new_trip_page").removeClass("hidden");
+            initialize();
         }
 
         function myTripsButton() {
@@ -572,6 +572,7 @@
             setAllMap(null);
             markers = [];
             total_distance = 0;
+            $("#locations_table").html('<tr class="info"><th>Location Name</th><th>Trip Date</th><th>Movement Type</th></tr>');
         }
 
         function computeDistance() {
@@ -597,7 +598,8 @@
                     marker.setTitle(results[0].formatted_address);
                     markers.push(marker);
 
-                    addLocationToList();
+                    //addLocationToList();
+                    updateLocationsTable();
                     computeDistance();
                 }
             });
@@ -610,6 +612,18 @@
             elem += startTag + markers[markers.length - 1].getTitle() + endTag;
            // elem = $("#locations_list").innerHTML + elem;
             $("#locations_list").append(elem);
+        }
+
+        function updateLocationsTable() {
+
+            var elem = "";
+            var startTag = '<tr>';
+            var endTag = '</tr>';
+            var locName = '<td>' + markers[markers.length-1].getTitle() +'</td>';
+            var pos = '<td>' + '<form action="demo_form.asp"><input type="date" name="trip_date"/></form>' +'</td>';
+            var userText =  '<td>' + 'by car' +'</td>';
+            elem += startTag + locName + pos +  userText + endTag;
+            $("#locations_table").append(elem);
         }
 
         window.onload = loadScript;
