@@ -1,0 +1,12 @@
+----------------------------CONFIGURARE WAMP SERVER-------------------------------
+
+Pentru testare locala am folosit utilitarul Wamp Server si am urmat pasii:
+
+1) Instalare Wamp Server pentru versiunea de sistem disponibila (x32, x64)
+http://www.wampserver.com/en/ -> Download
+
+2) Stergere continut director ./www/ din radacina Wamp Server
+
+3) Copiere continut proiect in directorul /www/ din radacina Wamp Server
+
+4) Deschidere proiect in browser (de preferat Chrome) scriind “localhost”
