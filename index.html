@@ -48,6 +48,14 @@
             margin: 0 5px 5px 0;
         }
 
+        #friend-list a:hover{
+            background: #ec971f;
+        }
+
+        .carousel-caption {
+            bottom: 80px;
+        }
+
     </style>
 
 </head>
@@ -87,8 +95,8 @@
                 <img src="./img/slide-01.jpg" >
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>Odyssey</h1>
-                        <p class="lead">I can be your daily trip planner...</p>
+                        <img src="img/logo.png">
+                        <p class="lead">The journey begins here</p>
                         <!-- <a class="btn btn-large btn-primary" href="#">Sign up today</a> -->
                     </div>
                 </div>
@@ -97,8 +105,8 @@
                 <img src="./img/slide-02.jpg">
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>Odyssey</h1>
-                        <p class="lead">I can be your daily trip planner...</p>
+                        <img src="img/logo.png">
+                        <p class="lead">I can be your daily trip planner</p>
                         <!-- <a class="btn btn-large btn-primary" href="#">Sign up today</a> -->
                     </div>
                 </div>
@@ -128,7 +136,7 @@
                         </div>
                     </div>
                     <div class="panel-heading">Add new assignment note</div>
-                    <div class="panel-body" id="sidebar-container">
+                    <div id="friends-note" class="panel-body" id="sidebar-container">
                         <div class="sidebar" id="sidebar">
                             <div class="btnpanel" id="sidepanel">
                                 <div class="button newnote" id="new_note"><span class="tooltip left">new note</span></div>
@@ -390,6 +398,13 @@
             friendList : []
         }
 
+        var trans = '<select>\
+                <option value="1">by Car</option>\
+                <option value="2">by Plane</option>\
+                <option value="3">by Bike</option>\
+                <option value="4">by Foot</option>\
+                </select>';
+
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '402234923212539', // App ID
@@ -421,6 +436,13 @@
             var list = "";
             var startTag = '<a class="list-group-item">';
             var endTag = '</a>';
+            userInfo.friendList.sort(function(x, y){
+                if (x.name < y.name)
+                    return -1;
+                else if (x.name > y.name)
+                    return 1;
+                return 0;
+            });
             for (var i = 0; i < userInfo.friendList.length; i++) {
                 list += startTag + userInfo.friendList[i].name + endTag;
             }
@@ -524,17 +546,20 @@
         function tripSuggestionsButton() {
             $(".centralContent").addClass("hidden");
             $("#trip_suggestions_page").removeClass("hidden");
+            $("#friends-note").addClass("hidden");
         }
 
         function newTripButton() {
             $(".centralContent").addClass("hidden");
             $("#new_trip_page").removeClass("hidden");
+            $("#friends-note").removeClass("hidden");
             initialize();
         }
 
         function myTripsButton() {
             $(".centralContent").addClass("hidden");
             $("#my_trips_page").removeClass("hidden");
+            $("#friends-note").removeClass("hidden");
         }
 
         //-----------------MAP FUNCTIONALITY-----------------------//
@@ -560,6 +585,7 @@
             script.type = 'text/javascript';
             script.src = map +'&callback=initialize&libraries=geometry';
             document.body.appendChild(script);
+            $("#friends-note").addClass("hidden");
         }
 
         function setAllMap(map) {
@@ -621,7 +647,7 @@
             var endTag = '</tr>';
             var locName = '<td>' + markers[markers.length-1].getTitle() +'</td>';
             var pos = '<td>' + '<form action="demo_form.asp"><input type="date" name="trip_date"/></form>' +'</td>';
-            var userText =  '<td>' + 'by car' +'</td>';
+            var userText =  '<td>' + trans +'</td>';
             elem += startTag + locName + pos +  userText + endTag;
             $("#locations_table").append(elem);
         }

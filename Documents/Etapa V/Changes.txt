@@ -1,0 +1,5 @@
+1) modificare titlul aplicatiei si folosirea unui logo cu background transparent de tip PNG.
+
+2) identificarea mai usoara a prietenilor din lista, acestia fiind sortati in ordine alfabetica
+
+3) lista de prieteni nu mai apare in pagina de TripSuggestions
